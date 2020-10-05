@@ -1,0 +1,14 @@
+{
+  "TELEGRAM_BOT_TOKEN": "YOUR_BOT_TOKEN",
+
+  "t_Start": "Welcome to FortniteStats Bot!",
+  "t_BackToHome": "Welcome back to main menu.",
+  "t_BRStats": "Which mode do you want to see your stats in that?",
+  "t_AboutBot": "Simple Telegram bot that generates an image with your fortnite account stats",
+  "t_SendUsername": "Please send your EpicGames username",
+
+  "t_Status200": "Stats of {}",
+  "t_Status403": "Account is PRIVATE",
+  "t_Status404": "Account NOT FOUND",
+  "t_StatusERR": "ERROR OCCURED"
+}
