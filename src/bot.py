@@ -47,19 +47,19 @@ class GenerateStats:
         await self.draw_on((140, 400), data["stats"]["all"][mode]["wins"])
 
         if mode == "overall" or mode == "solo":
-            await self.draw_on((590, 310), "10", (0, 228, 255))
+            await self.draw_on((590, 310), "10", (243, 239, 255))
             await self.draw_on((535, 400), data["stats"]["all"][mode]["top10"])
-            await self.draw_on((990, 310), "25", (0, 228, 255))
+            await self.draw_on((990, 310), "25", (243, 239, 255))
             await self.draw_on((930, 400), data["stats"]["all"][mode]["top25"])
         elif mode == "duo":
-            await self.draw_on((590, 310), "5", (0, 228, 255))
+            await self.draw_on((590, 310), "5", (243, 239, 255))
             await self.draw_on((535, 400), data["stats"]["all"][mode]["top5"])
-            await self.draw_on((990, 310), "12", (0, 228, 255))
+            await self.draw_on((990, 310), "12", (243, 239, 255))
             await self.draw_on((930, 400), data["stats"]["all"][mode]["top12"])
         elif mode == "squad":
-            await self.draw_on((590, 310), "3", (0, 228, 255))
+            await self.draw_on((590, 310), "3", (243, 239, 255))
             await self.draw_on((535, 400), data["stats"]["all"][mode]["top3"])
-            await self.draw_on((990, 310), "5", (0, 228, 255))
+            await self.draw_on((990, 310), "5", (243, 239, 255))
             await self.draw_on((930, 400), data["stats"]["all"][mode]["top6"])
 
         await self.draw_on((140, 650), data["stats"]["all"][mode]["kills"])
