@@ -2,7 +2,7 @@
 
 # Telegram Fortnite Stats
 
-![FortniteStats Banner](./assets/Banner.jpg)
+![FortniteStats Banner](./assets/banner.jpg)
 
 </div>
 
