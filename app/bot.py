@@ -1,7 +1,7 @@
 import json
 import aiohttp
 import logging
-from sourceCode.generateStats import GenerateStats
+from app.generateStats import GenerateStats
 from aiogram.dispatcher import FSMContext
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -10,8 +10,10 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Initialize bot and dispatcher
+# Open and load config file
 c = json.load(open("./config.json", "r"))
+
+# Initialize bot and dispatcher
 bot = Bot(token=c["TELEGRAM_BOT_TOKEN"], parse_mode=types.ParseMode.HTML)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
@@ -33,28 +35,33 @@ async def get_url(params: dict) -> dict:
 # ___________________________________________________
 class Button():
     start_markup = types.ReplyKeyboardMarkup(
-    keyboard=[[types.KeyboardButton("📊 Battle Royale Stats"),
-               types.KeyboardButton("⁉️About this bot")
-               ]],
-    resize_keyboard=True)
+        keyboard=[[types.KeyboardButton("📊 Battle Royale Stats"),
+                   types.KeyboardButton("⁉️About this bot")
+                   ]],
+        resize_keyboard=True)
+
     modes_markup = types.ReplyKeyboardMarkup(
-    keyboard=[
-            [   
+        keyboard=[
+            [
                 types.KeyboardButton("☑️ Overall"),
                 types.KeyboardButton("🔴 Solo")],
             [
                 types.KeyboardButton("🔵 Duos"),
                 types.KeyboardButton("🟢 Squads")]
         ], resize_keyboard=True)
+
     back_btn = types.ReplyKeyboardMarkup(
         keyboard=[[types.KeyboardButton("↩️ Back to home")]],
         resize_keyboard=True)
 
+
 btn = Button()
+
 
 class Stats(StatesGroup):
     mode = State()
     username = State()
+
 
 @dp.message_handler(commands="start")
 async def start_menu(message: types.Message):
@@ -74,7 +81,7 @@ async def back_to_home(message: types.Message, state: FSMContext):
 
 @dp.message_handler(lambda message: message.text)
 async def stats_menu(message: types.Message):
-    
+
     mtext = message.text
     if mtext == '📊 Battle Royale Stats':
         await message.answer(c["t_BRStats"], reply_markup=btn.modes_markup)
@@ -124,19 +131,19 @@ async def username_state(message: types.Message, state: FSMContext):
 
         # Do some thing with response code from API
         if resp["status"] == 404:  # It means username not Fount
-            with open(f"assets/#not_found.png", "rb") as not_found:
+            with open(f"assets/images/#not_found.png", "rb") as not_found:
                 await message.answer_photo(not_found, c["t_Status404"], reply_markup=btn.start_markup)
-        
+
         if resp["status"] == 403:  # It means user stats is private
-            with open(f"assets/#private.png", "rb") as private:
+            with open(f"assets/images/#private.png", "rb") as private:
                 await message.answer_photo(private, c["t_Status403"], reply_markup=btn.start_markup)
-        
+
         if resp["status"] == 200:  # It means everything should works fine
             generator = GenerateStats()  # Open #File.png then generate stats
             await generator.get_stats(message.text, data['mode'], resp["data"])
             with open(f"exports/{message.text}_{data['mode']}.png", "rb") as stats:
                 await message.answer_photo(stats, c["t_Status200"].format(message.text), reply_markup=btn.start_markup)
-        
+
         if resp["status"] == 429:  # It means you requested more than maximum allowed requests
             await message.answer(c["t_Status429"], reply_markup=btn.start_markup)
 

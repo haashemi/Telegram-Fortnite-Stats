@@ -1,6 +1,7 @@
 
 from PIL import Image, ImageFont, ImageDraw
 
+
 class GenerateStats:
     """
     Class of everything that needed to make the Stats image
@@ -10,7 +11,7 @@ class GenerateStats:
         """
         Open/Ready necessary things
         """
-        self.stats = Image.open("assets/#file.png")
+        self.stats = Image.open("assets/images/#file.png")
         self.draw = ImageDraw.Draw(self.stats)
         self.font = ImageFont.truetype(
             r"assets/fonts/BurbankBigCondensed-Black.ttf", 60)

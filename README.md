@@ -2,7 +2,7 @@
 
 # Telegram Fortnite Stats
 
-![FortniteStats Banner](./assets/banner.jpg)
+![FortniteStats Banner](./assets/images/banner.jpg)
 
 </div>
 
@@ -22,19 +22,17 @@
 
 - Install necessary modules if you don't have them
 
-      pip install pillow
-      pip install aiohttp
-      pip install -U aiogram
+      pip install -U -r requirements.txt
 
-- Then run `bot.py` file
+- Then run `app` package
 
-      python bot.py
+      python -m app
 
 ## How to customize it?
 
 - To do it you need an app like Adobe Photoshop to open .PSD files
 
-- Open `./source-code/assets/#File.psd` file and change anything you want!
+- Extract `./assets/images/RawPSD.rar` then open the PSD files inside that and change anything you want!
 
 ## Known Issues:
 

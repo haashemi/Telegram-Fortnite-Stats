@@ -1,4 +1,4 @@
-from sourceCode import bot
+from app import bot
 
 if __name__ == '__main__':
     bot.setup()
