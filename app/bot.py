@@ -86,7 +86,7 @@ async def stats_menu(message: types.Message):
     if mtext == '📊 Battle Royale Stats':
         await message.answer(c["t_BRStats"], reply_markup=btn.modes_markup)
         await Stats.mode.set()
-    if mtext == '⁉️About this bot':
+    elif mtext == '⁉️About this bot':
         await message.answer(c["t_AboutBot"])
 
 
@@ -133,18 +133,15 @@ async def username_state(message: types.Message, state: FSMContext):
         if resp["status"] == 404:  # It means username not Fount
             with open(f"assets/images/#not_found.png", "rb") as not_found:
                 await message.answer_photo(not_found, c["t_Status404"], reply_markup=btn.start_markup)
-
-        if resp["status"] == 403:  # It means user stats is private
+        elif resp["status"] == 403:  # It means user stats is private
             with open(f"assets/images/#private.png", "rb") as private:
                 await message.answer_photo(private, c["t_Status403"], reply_markup=btn.start_markup)
-
-        if resp["status"] == 200:  # It means everything should works fine
+        elif resp["status"] == 200:  # It means everything should works fine
             generator = GenerateStats()  # Open #File.png then generate stats
             await generator.get_stats(message.text, data['mode'], resp["data"])
             with open(f"exports/{message.text}_{data['mode']}.png", "rb") as stats:
                 await message.answer_photo(stats, c["t_Status200"].format(message.text), reply_markup=btn.start_markup)
-
-        if resp["status"] == 429:  # It means you requested more than maximum allowed requests
+        elif resp["status"] == 429:  # It means you requested more than maximum allowed requests
             await message.answer(c["t_Status429"], reply_markup=btn.start_markup)
 
 
